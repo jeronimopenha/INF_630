@@ -47,6 +47,7 @@ complexidade O(n log<sub>2</sub><sup>n</sup>)<sub>[Ref](https://wiki.python.org/
 * Função bisect() para vetores em python que possui ordem de complexidade O(log<sub>2</sub><sup>n</sup>)<sub>[Ref](https://docs.python.org/3/library/bisect.html#module-bisect)</sub>
 * Utilização da biblioteca Matplotlib para a geração dos gráficos
 * Utilização da biblioteca Time para a contagem do tempo de execução
+* Utilização da biblioteca Random para a geração de números aleatórios para os vetores de entrada
 * Execução para 10 várias listas aleatórias, porém iguais para cada experimento, com diferentes conteúdos e utilização do tempo médio das execuções
 * Utilização de valores grandes nas listas: Optou-se por valores de -10000 a +10000.
 * Os códigos estão no arquivo sum3.py contido neste repositório
