@@ -36,10 +36,10 @@ O problema 3-Sum consiste em, dado uma lista de *n* números, decidir se existem
 
 Obs.: não é necessário fazer análise teórica ou estatı́stica dos resultados, trata-se apenas de experimento.
 
-<h2>Resolução</h2>
+<h2>Relatório</h2>
 
 Para a resolução da atividade foram utilizados:
-* Repositório do exercício: [Link.](https://github.com/jeronimopenha/INF_630)
+* Repositório do exercício: [Link.](https://github.com/jeronimopenha/INF_630/tree/main/Exerc%C3%ADcios/2022_09_12_Exerc%C3%ADcio_1)
 * Um Desktop com o processador Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz e 64GB de memória RAM DDR4 2133 MHz.
 * Sistema Operacional Ubuntu GNU/Linux 20.04.05 x86_64 com kernel 5.15.0-46-generic.
 * Linguagem de programação python 3.8.10.
@@ -52,9 +52,9 @@ Para a resolução da atividade foram utilizados:
 * Execução para 10 listas aleatórias, porém iguais para entre os experimentos, com diferentes conteúdos em cada e utilização do tempo médio das execuções.
 * As listas foram ordenadas para cada experimento e o tempo de ordenação não foi levado em consideração para a construção dos gráficos contidos nesse relatório.
 * Foram utilizados valores aleatórios -10000 a +10000.
-* Os códigos estão no arquivo sum3.py contido neste repositório na pasta src.
+* Os códigos estão no arquivo sum3 contido neste repositório na pasta src.
 * Para a instalação das dependências deste projeto basta executar o comando: pip install -r  requirements.txt 
-* Para a execução: python sum3.py
+* Para a execução: python sum3
 * Após a execução do script, o relatório de cada experimento será exibido no terminal e salvo em arquivos independentes na pasta "retorno".
 * Os gráficos são salvos na pasta "graficos".
 * Para este documento os gráficos e o relatório de execução estão disponíveis na pasta "relatorio".
@@ -92,9 +92,9 @@ Para a resolução da atividade foram utilizados:
     | 2000 |         165.590 |      2.070e-08 |
     | 5000 |        2482.418 |      1.986e-08 |
 
-    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / N<sup>3</sup>
+    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / n<sup>3</sup>
     * K<sub>médio</sub> = 2.129e-08
-    * T<sub>(n)<sub>(estimado)</sub></sub> = K * N<sup>3</sup>
+    * T<sub>(n)<sub>(estimado)</sub></sub> = K * n<sup>3</sup>
 
     **Estimativa de tempos de execução**
     |   N  | T<sub>(s)</sub> | T<sub>(e)<sub>(estimado)</sub></sub> |
@@ -113,7 +113,7 @@ Para a resolução da atividade foram utilizados:
 
     * As estimativas de tempo de execução foram razoavelmente precisas co se considerar as curvas observadas no gráfico, porém verifica-se um aumento na distância entre as curvas para valores maiores. Creio que a estimativa feita possa ser usada para se ter uma ideia da tendência do tempo de execução do algoritmo.
 
-2. Algoritmo 3-SUM N<sup>2</sup>log<sub>2</sub><sup>n</sup>
+2. Algoritmo 3-SUM n<sup>2</sup>log<sub>2</sub><sup>n</sup>
 
     **Código**
     ```
@@ -143,9 +143,9 @@ Para a resolução da atividade foram utilizados:
     | 2000 |           6.274 |      1.430e-07 |
     | 5000 |         103.997 |      3.385e-07 |
 
-    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / (N<sup>2</sup>log<sub>2</sub><sup>n</sup>)
+    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / (n<sup>2</sup>log<sub>2</sub><sup>n</sup>)
     * K<sub>médio</sub> = 1.375e-07
-    * T<sub>(n)<sub>(estimado)</sub></sub> = K * (N<sup>2</sup>log<sub>2</sub><sup>n</sup>)
+    * T<sub>(n)<sub>(estimado)</sub></sub> = K * (n<sup>2</sup>log<sub>2</sub><sup>n</sup>)
 
     **Estimativa de tempos de execução**
     |   N  | T<sub>(s)</sub> | T<sub>(e)<sub>(estimado)</sub></sub> |
@@ -161,7 +161,7 @@ Para a resolução da atividade foram utilizados:
 
     * As estimativas de tempo de execução foram mais próximas apenas para os valores menores. Isto pode ter ocorrido por conta da execução desses experimentos terem sido executados em tempos curtos e o cálculo para o k<sub>médio</sub> ter sido afetado por falta de precisão. Imagino que um k<sub>médio</sub> gerado a partir de valores maiores que 500 possam entregar uma previsão mais próxima.
 
-3. Algoritmo 3-SUM N<sup>2</sup>
+3. Algoritmo 3-SUM n<sup>2</sup>
 
     
     **Código**
@@ -197,9 +197,9 @@ Para a resolução da atividade foram utilizados:
     | 2000 |           0.500 |      1.249e-07 |
     | 5000 |           4.478 |      1.791e-07 |
 
-    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / N<sup>2</sup>
+    * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / n<sup>2</sup>
     * K<sub>médio</sub> = 1.274e-07
-    * T<sub>(n)<sub>(estimado)</sub></sub> = K * N<sup>2</sup>
+    * T<sub>(n)<sub>(estimado)</sub></sub> = K * n<sup>2</sup>
 
     **Estimativa de tempos de execução**
     |   N  | T<sub>(s)</sub> | T<sub>(e)<sub>(estimado)</sub></sub> |
@@ -226,6 +226,6 @@ Para a resolução da atividade foram utilizados:
 
 5. Estimativa de N para uma execução de 10s para cada algoritmo
 
-    1. Força bruta: N = raiz_cubica(T/K) ~ 777
-    2. Com busca binária:
-    3. Otimizado: N = raiz_quadrada(T/K) ~ 8860
+    1. Força bruta: N ~ raiz_cubica(T/K) ~ 777
+    2. Com busca binária: N ~ 2536 (empírico)
+    3. Otimizado: N ~ raiz_quadrada(T/K) ~ 8860
