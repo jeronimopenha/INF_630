@@ -227,5 +227,5 @@ Para a resolução da atividade foram utilizados:
 5. Estimativa de N para uma execução de 10s para cada algoritmo
 
     1. Força bruta: N ~ raiz_cubica(T/K) ~ 777
-    2. Com busca binária: N ~ 2536 (empírico)
+    2. Com busca binária: N ~ 2536 (encontrado com o auxílio de planilha eletrônica)
     3. Otimizado: N ~ raiz_quadrada(T/K) ~ 8860
