@@ -1,0 +1,11 @@
+Algoritmo 3-SUM Força Bruta
+| N | T(s) | K(n) |
+| 100 | 0.081 | 8.077e-08 |
+| 200 | 0.635 | 7.934e-08 |
+
+Estimativa de tempos
+| N | K(medio) | T(s) | T(s)(estimado) | Erro(%) |
+| 100 | 8.005e-08 | 0.081 | 0.080 | -0.882 |
+| 200 | 8.005e-08 | 0.635 | 0.640 | 0.897 |
+
+Estimativa para N = 5000: 10006.833
