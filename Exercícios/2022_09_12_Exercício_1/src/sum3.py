@@ -13,8 +13,6 @@ def calc_k_f_b(t_medio, n):
 def calc_k_b_b(t_medio, n):
     # nlog2n * n2 log2n
     # return t_medio/(n*log2(n)*pow(n, 2)*log2(n))
-    p1 = pow(n, 2)
-    p2 = log2(n)
     return t_medio/(pow(n, 2)*log2(n))
 
 
@@ -78,13 +76,13 @@ def sum3_optimized(vec_):
     for i in range(qtde_valores):
         j = i+1
         k = qtde_valores - 1
-        while(j < k):
+        while (j < k):
             s = vec[i] + vec[j] + vec[k]
             if s > 0:
                 k -= 1
             elif s < 0:
                 j += 1
-            elif s == 0:
+            else:
                 sum3.append([vec[i], vec[j], vec[k]])
                 j += 1
     end = time.time_ns()
@@ -141,7 +139,7 @@ def exec_experimento(funcao, eq_k, eq_t, nome_exp, nome_arquivo, vetor_tamanhos,
             n, k_medio, vet_t_medio[i], t_est, erro)
     relatorio += "\n"
 
-    with open('./relatorio/%s.txt' % nome_arquivo, 'w') as f:
+    with open('./retorno/%s.txt' % nome_arquivo, 'w') as f:
         f.write(relatorio)
         f.close()
 
@@ -155,7 +153,7 @@ def exec_experimento(funcao, eq_k, eq_t, nome_exp, nome_arquivo, vetor_tamanhos,
 def main():
     # criação dos vetores de 100, 500, 1000, 2000 e 50000
     # 10 vetores para cada
-    qtde_exec = 1
+    qtde_exec = 10
     random.seed(0)
     vetor_tamanhos = [100, 500, 1000, 2000, 5000]
     qtde_exp = len(vetor_tamanhos)
@@ -166,25 +164,38 @@ def main():
             vetores_dados[i].append([random.randint(-1000, 1000)
                                     for j in range(vetor_tamanhos[i])])
 
-    # Algoritmo 3-sum força bruta O(n³)
-    # bf_t_medio, bf_t_est, bf_k, bf_vet_ret = exec_experimento(
-    #    sum3_fbruta, calc_k_f_b, calc_t_est_f_b,
-    #    "3-SUM Força Bruta", "sum_3_f_b",
-    #    vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
-
     # Algoritmo 3-sum com busca binária O(n² log2 n)
     bb_t_medio, bb_t_est, bb_k, bb_vet_ret = exec_experimento(
         sum3_bisect, calc_k_b_b, calc_t_est_b_b,
         "3-SUM Busca Binária", "sum_3_b_b",
         vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
+    '''with open('./relatorio/sum_3_bb_data.txt', 'w') as f:
+        f.write(bb_t_medio)
+        f.write(bb_t_est)
+        f.write(bb_k)
+        f.write(bb_vet_ret)
+        f.close()'''
 
     # Algoritmo 3-sum otimizado O(n²)
     o_t_medio, o_t_est, o_k, o_vet_ret = exec_experimento(
         sum3_optimized, calc_k_o, calc_t_est_o,
         "3-SUM Otimizado", "sum_3_o",
         vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
-    # relatorio += "Estimativa para N = 5000: %.3f\n" % (eq_t(k_medio, n))
-    a = 1
+
+    # Algoritmo 3-sum força bruta O(n³)
+    bf_t_medio, bf_t_est, bf_k, bf_vet_ret = exec_experimento(
+        sum3_fbruta, calc_k_f_b, calc_t_est_f_b,
+        "3-SUM Força Bruta", "sum_3_f_b",
+        vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
+    print("Estimativa para N = 10000: %.3f\n" % (calc_t_est_f_b(bf_k, 10000)))
+
+    vet_grafico = [
+        [bf_t_medio, "T_fb.", "-"],
+        [bb_t_medio, "T_bb", "--"],
+        [o_t_medio, "T_otm.", "-."]
+        ]
+    salva_grafico("Experimentos", "N", "Segundos",
+                  vetor_tamanhos, vet_grafico, "exp")
 
 
 if __name__ == '__main__':
