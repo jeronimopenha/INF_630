@@ -39,7 +39,7 @@ Obs.: não é necessário fazer análise teórica ou estatı́stica dos resultad
 <h2>Relatório</h2>
 
 Para a resolução da atividade foram utilizados:
-* Repositório do exercício: [Link.](https://github.com/jeronimopenha/INF_630/tree/main/Exerc%C3%ADcios/2022_09_12_Exerc%C3%ADcio_1)
+* Repositório do exercício: [Link.](https://github.com/jeronimopenha/INF_630/tree/main/Exercicios/2022_09_12_Exercicio_1)
 * Um Desktop com o processador Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz e 64GB de memória RAM DDR4 2133 MHz.
 * Sistema Operacional Ubuntu GNU/Linux 20.04.05 x86_64 com kernel 5.15.0-46-generic.
 * Linguagem de programação python 3.8.10.
@@ -62,7 +62,7 @@ Para a resolução da atividade foram utilizados:
 <h3>Relatório de execução:</h3>
 
 * Para estimar o tempo de execução para N=5000, foi acrescentada uma constante K<sub>médio</sub> multiplicada à equação de complexidade de cada algoritmo
-* A constante K<sub>médio</sub> foi definida com a média das constantes K<sub>N</sub> calculadas para cada instância.
+* A constante K<sub>médio</sub> foi definida com a média das constantes K<sub>n</sub> calculadas para cada instância.
 1. Algoritmo 3-SUM Força bruta
 
     **Código**
