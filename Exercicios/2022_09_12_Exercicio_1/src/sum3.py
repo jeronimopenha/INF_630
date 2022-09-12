@@ -33,45 +33,44 @@ def calc_t_est_o(k_medio, n):
     return k_medio * pow(n, 2)
 
 
-def sum3_fbruta(vec_):
-    vec = vec_.copy()
-    vec.sort()
+def sum3_fbruta(vec):
     start = time.time_ns()
-    sum3 = []
+    #sum3 = []
+    sum3 = 0
     qtde_valores = len(vec)
     for i in range(qtde_valores):
         for j in range(i+1, qtde_valores):
             for k in range(j+1, qtde_valores):
                 if vec[i]+vec[j]+vec[k] == 0:
-                    sum3.append([vec[i], vec[j], vec[k]])
+                    #sum3.append([vec[i], vec[j], vec[k]])
+                    sum3 += 1
                     break
 
     end = time.time_ns()
     return sum3, end - start
 
 
-def sum3_bisect(vec_):
-    vec = vec_.copy()
-    vec.sort()
+def sum3_bisect(vec):
     start = time.time_ns()
-    sum3 = []
+    #sum3 = []
+    sum3 = 0
     qtde_valores = len(vec)
     for i in range(qtde_valores):
         for j in range(i+1, qtde_valores):
             l = (vec[i] + vec[j]) * -1
             k = bisect.bisect_left(vec[j+1:qtde_valores], l)
             if (k + j + 1) != qtde_valores and vec[(k + j + 1)] == l:
-                sum3.append([vec[i], vec[j], vec[k]])
+                #sum3.append([vec[i], vec[j], vec[k]])
+                sum3 += 1
 
     end = time.time_ns()
     return sum3, end - start
 
 
-def sum3_optimized(vec_):
-    vec = vec_.copy()
-    vec.sort()
+def sum3_optimized(vec):
     start = time.time_ns()
-    sum3 = []
+    #sum3 = []
+    sum3 = 0
     qtde_valores = len(vec)
     for i in range(qtde_valores):
         j = i+1
@@ -83,7 +82,8 @@ def sum3_optimized(vec_):
             elif s < 0:
                 j += 1
             else:
-                sum3.append([vec[i], vec[j], vec[k]])
+                #sum3.append([vec[i], vec[j], vec[k]])
+                sum3 += 1
                 j += 1
     end = time.time_ns()
     return sum3, end - start
@@ -153,22 +153,25 @@ def exec_experimento(funcao, eq_k, eq_t, nome_exp, nome_arquivo, vetor_tamanhos,
 def main():
     # criação dos vetores de 100, 500, 1000, 2000 e 50000
     # 10 vetores para cada
-    qtde_exec = 10
-    random.seed(0)
-    vetor_tamanhos = [100, 500, 1000, 2000, 5000]
+    qtde_exec = 3
+    # random.seed(0)
+    vetor_tamanhos = [100, 500, 1000, 2000, 5000, 10000]
     qtde_exp = len(vetor_tamanhos)
     vetores_dados = []
     for i in range(qtde_exp):
+        valor_min = ((vetor_tamanhos[i]//2) - 1) * -1
         vetores_dados.append([])
         for k in range(qtde_exec):
-            vetores_dados[i].append([random.randint(-1000, 1000)
-                                    for j in range(vetor_tamanhos[i])])
+            vetores_dados[i].append(
+                [valor_min + j for j in range(vetor_tamanhos[i])])
 
     # Algoritmo 3-sum com busca binária O(n² log2 n)
     bb_t_medio, bb_t_est, bb_k, bb_vet_ret = exec_experimento(
         sum3_bisect, calc_k_b_b, calc_t_est_b_b,
         "3-SUM Busca Binária", "sum_3_b_b",
         vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
+    print(bb_t_medio)
+    print(bb_vet_ret)
     '''with open('./relatorio/sum_3_bb_data.txt', 'w') as f:
         f.write(bb_t_medio)
         f.write(bb_t_est)
@@ -183,19 +186,22 @@ def main():
         vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
 
     # Algoritmo 3-sum força bruta O(n³)
-    bf_t_medio, bf_t_est, bf_k, bf_vet_ret = exec_experimento(
-        sum3_fbruta, calc_k_f_b, calc_t_est_f_b,
-        "3-SUM Força Bruta", "sum_3_f_b",
-        vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
-    print("Estimativa para N = 10000: %.3f\n" % (calc_t_est_f_b(bf_k, 10000)))
+    # bf_t_medio, bf_t_est, bf_k, bf_vet_ret = exec_experimento(
+    #    sum3_fbruta, calc_k_f_b, calc_t_est_f_b,
+    #    "3-SUM Força Bruta", "sum_3_f_b",
+    #    vetor_tamanhos, vetores_dados, qtde_exec, qtde_exp)
+    #print("Estimativa para N = 10000: %.3f\n" % (calc_t_est_f_b(bf_k, 10000)))
 
-    vet_grafico = [
-        [bf_t_medio, "T_fb.", "-"],
-        [bb_t_medio, "T_bb", "--"],
-        [o_t_medio, "T_otm.", "-."]
-        ]
-    salva_grafico("Experimentos", "N", "Segundos",
-                  vetor_tamanhos, vet_grafico, "exp")
+    # vet_grafico = [
+    #    [bf_t_medio, "T_fb.", "-"],
+    #    [bb_t_medio, "T_bb", "--"],
+    #    [o_t_medio, "T_otm.", "-."]
+    # ]
+    # salva_grafico("Experimentos", "N", "Segundos",
+    #              vetor_tamanhos, vet_grafico, "exp")
+
+    print(o_t_medio)
+    print(o_vet_ret)
 
 
 if __name__ == '__main__':
