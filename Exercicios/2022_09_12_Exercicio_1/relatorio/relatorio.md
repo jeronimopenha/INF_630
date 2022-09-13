@@ -39,29 +39,19 @@ Obs.: não é necessário fazer análise teórica ou estatı́stica dos resultad
 <h2>Relatório</h2>
 
 Para a resolução da atividade foram utilizados:
-* Repositório do exercício: [Link.](https://github.com/jeronimopenha/INF_630/tree/main/Exercicios/2022_09_12_Exercicio_1)
 * Um Desktop com o processador Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz e 64GB de memória RAM DDR4 2133 MHz.
 * Sistema Operacional Ubuntu GNU/Linux 20.04.05 x86_64 com kernel 5.15.0-46-generic.
 * Linguagem de programação python 3.8.10.
 * Visual Studio Code versão 1.71.0.
-* Função sort() para vetores em python que possui ordem de complexidade O(n log<sub>2</sub><sup>n</sup>)<sub>.[Ref](https://wiki.python.org/moin/TimeComplexity)</sub>
 * Função bisect() para vetores em python que possui ordem de complexidade O(log<sub>2</sub><sup>n</sup>)<sub>.[Ref](https://docs.python.org/3/library/bisect.html#module-bisect)</sub>
 * Os gráficos foram gerados com o auxílio da biblioteca Matplotlib.
 * Utilização da biblioteca Time para a contagem do tempo de execução.
-* Utilização da biblioteca Random para a geração de números aleatórios para os vetores de entrada.
-* Execução para 10 listas aleatórias, porém iguais para entre os experimentos, com diferentes conteúdos em cada e utilização do tempo médio das execuções.
-* As listas foram ordenadas para cada experimento e o tempo de ordenação não foi levado em consideração para a construção dos gráficos contidos nesse relatório.
-* Foram utilizados valores aleatórios -10000 a +10000.
-* Os códigos estão no arquivo sum3 contido neste repositório na pasta src.
-* Para a instalação das dependências deste projeto basta executar o comando: pip install -r  requirements.txt 
-* Para a execução: python sum3
-* Após a execução do script, o relatório de cada experimento será exibido no terminal e salvo em arquivos independentes na pasta "retorno".
-* Os gráficos são salvos na pasta "graficos".
-* Para este documento os gráficos e o relatório de execução estão disponíveis na pasta "relatorio".
+* As listas foram criadas da mesma forma para cada experimento com números sequenciais, sendo o menor valor igual a [(N/2) - 1] * -1, e o maior igual a N/2 e foram entregues ordenadas para cada experimento.
+* Cada algoritmo foi executado 10 vezes para a obtenção dos valores dos experimentos. 
 
 <h3>Relatório de execução:</h3>
 
-* Para estimar o tempo de execução para N=5000, foi acrescentada uma constante K<sub>médio</sub> multiplicada à equação de complexidade de cada algoritmo
+* Para estimar o tempo de execução para N=10000, foi acrescentada uma constante K<sub>médio</sub> multiplicada à equação de complexidade de cada algoritmo
 * A constante K<sub>médio</sub> foi definida com a média das constantes K<sub>n</sub> calculadas para cada instância.
 1. Algoritmo 3-SUM Força bruta
 
@@ -69,13 +59,13 @@ Para a resolução da atividade foram utilizados:
     ```
     def sum3_fbruta(vec):
         start = time.time_ns()
-        sum3 = []
+        sum3 = 0
         qtde_valores = len(vec)
         for i in range(qtde_valores):
             for j in range(i+1, qtde_valores):
                 for k in range(j+1, qtde_valores):
                     if vec[i]+vec[j]+vec[k] == 0:
-                        sum3.append([vec[i], vec[j], vec[k]])
+                        sum3 += 1
                         break
 
         end = time.time_ns()
@@ -106,28 +96,26 @@ Para a resolução da atividade foram utilizados:
     | 5000 | 2482.418 | 2661.860 |
     
 
-    * Para N = 5000, o valor estimado foi de **21294.882s** equivalente a 5h 54m 53s
+    * Para N = 10000, o valor estimado foi de **21294.882s** equivalente a 5h 54m 53s
 
     **Gráfico com o tempo medido e o tempo estimado**
     <img width="500px" src="./imagens/sum_3_f_b.png"></center></td>
 
-    * As estimativas de tempo de execução foram razoavelmente precisas co se considerar as curvas observadas no gráfico, porém verifica-se um aumento na distância entre as curvas para valores maiores. Creio que a estimativa feita possa ser usada para se ter uma ideia da tendência do tempo de execução do algoritmo.
+    * As estimativas de tempo de execução foram razoavelmente precisas ao se considerar as curvas observadas no gráfico, porém verifica-se um aumento na distância entre as curvas para valores maiores. Creio que a estimativa feita possa ser usada para se ter uma ideia da tendência do tempo de execução do algoritmo.
 
 2. Algoritmo 3-SUM n<sup>2</sup>log<sub>2</sub><sup>n</sup>
 
     **Código**
     ```
     def sum3_bisect(vec):
-        vec.sort()
-        start = time.time_ns()
-        sum3 = []
+        sum3 = 0
         qtde_valores = len(vec)
         for i in range(qtde_valores):
             for j in range(i+1, qtde_valores):
                 l = (vec[i] + vec[j]) * -1
                 k = bisect.bisect_left(vec[j+1:qtde_valores], l)
                 if (k + j + 1) != qtde_valores and vec[(k + j + 1)] == l:
-                    sum3.append([vec[i], vec[j], vec[k]])
+                    sum3 += 1
 
         end = time.time_ns()
         return sum3, end - start
@@ -137,24 +125,26 @@ Para a resolução da atividade foram utilizados:
 
     |   N  | T<sub>(s)</sub> | K<sub>(n)<sub> |
     | ---- | --------------- | -------------- |
-    |  100 |           0.003 |      5.176e-08 |
-    |  500 |           0.141 |      6.293e-08 |
-    | 1000 |           0.911 |      9.139e-08 |
-    | 2000 |           6.274 |      1.430e-07 |
-    | 5000 |         103.997 |      3.385e-07 |
+    | 100 | 0.003 | 4.709e-08 |
+    | 500 | 0.127 | 5.672e-08 |
+    | 1000 | 0.719 | 7.213e-08 |
+    | 2000 | 4.837 | 1.103e-07 |
+    | 5000 | 70.744 | 2.303e-07 |
+    | 10000 | 584.878 | 4.402e-07 |
 
     * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / (n<sup>2</sup>log<sub>2</sub><sup>n</sup>)
-    * K<sub>médio</sub> = 1.375e-07
+    * K<sub>médio</sub> = 1.594e-07
     * T<sub>(n)<sub>(estimado)</sub></sub> = K * (n<sup>2</sup>log<sub>2</sub><sup>n</sup>)
 
     **Estimativa de tempos de execução**
     |   N  | T<sub>(s)</sub> | T<sub>(e)<sub>(estimado)</sub></sub> |
-    | ---- | --------------- | ------ |
-    |  100 |           0.003 |  0.009 |
-    |  500 |           0.141 |  0.308 |
-    | 1000 |           0.911 |  1.371 |
-    | 2000 |           6.274 |  6.033 |
-    | 5000 |         103.997 | 42.249 |
+    | ----- | --------------- | ------- |
+    |   100 |           0.003 |   0.011 |
+    |   500 |           0.127 |   0.357 |
+    |  1000 |           0.719 |   1.589 |
+    |  2000 |           4.837 |   6.994 |
+    |  5000 |          70.744 |  48.980 |
+    | 10000 |         584.878 | 211.863 |
 
     **Gráfico com o tempo medido e o tempo estimado**
     <img width="500px" src="./imagens/sum_3_b_b.png"></center></td>
@@ -191,35 +181,37 @@ Para a resolução da atividade foram utilizados:
 
     |   N  | T<sub>(s)</sub> | K<sub>(n)<sub> |
     | ---- | --------------- | -------------- |
-    |  100 |           0.001 |      9.721e-08 |
-    |  500 |           0.030 |      1.216e-07 |
-    | 1000 |           0.114 |      1.140e-07 |
-    | 2000 |           0.500 |      1.249e-07 |
-    | 5000 |           4.478 |      1.791e-07 |
+    | 100 | 0.001 | 1.266e-07 |
+    | 500 | 0.024 | 9.746e-08 |
+    | 1000 | 0.096 | 9.637e-08 |
+    | 2000 | 0.382 | 9.555e-08 |
+    | 5000 | 2.405 | 9.620e-08 |
+    | 10000 | 9.870 | 9.870e-08 |
 
     * Onde K<sub>(n)</sub> =  T<sub>(n)</sub> / n<sup>2</sup>
-    * K<sub>médio</sub> = 1.274e-07
+    * K<sub>médio</sub> = 1.018e-07
     * T<sub>(n)<sub>(estimado)</sub></sub> = K * n<sup>2</sup>
 
     **Estimativa de tempos de execução**
     |   N  | T<sub>(s)</sub> | T<sub>(e)<sub>(estimado)</sub></sub> |
-    | ---- | --------------- | ------ |
-    |  100 |           0.001 |  0.001 |
-    |  500 |           0.030 |  0.032 |
-    | 1000 |           0.114 |  0.127 |
-    | 2000 |           0.500 |  0.509 |
-    | 5000 |           4.478 |  3.184 |
+    | ----- | --------------- | ------ |
+    |   100 |           0.001 |  0.001 |
+    |   500 |           0.024 |  0.025 |
+    |  1000 |           0.096 |  0.102 |
+    |  2000 |           0.382 |  0.407 |
+    |  5000 |           2.405 |  2.545 |
+    | 10000 |           9.870 | 10.182 |
 
     **Gráfico com o tempo medido e o tempo estimado**
     <img width="500px" src="./imagens/sum_3_o.png"></center></td>
 
-    * Assim com o ocorrido no experimento anterior, as estimativas de tempo de execução foram mais próximas apenas para os valores menores. Isto pode ter ocorrido por conta da execução desses experimentos terem sido executados em tempos curtos e o cálculo para o k<sub>médio</sub> ter sido afetado por falta de precisão. Imagino que um k<sub>médio</sub> gerado a partir de valores maiores que 500 possam entregar uma previsão mais próxima. Neste caso, creio que a utilização do cálculo estimado possa sinda ser usado como um indicativo de tendência.
+    * As estimativas de tempo de execução foram razoavelmente precisas ao se considerar as curvas observadas no gráfico. Creio que a estimativa feita possa ser usada para se ter uma ideia da tendência do tempo de execução do algoritmo.
 
 4. Gráficos de execução
 
     Abaixo pode-se observar o gráfico para a execução dos experimentos com os resultados dos trẽs algoritmos juntos.
 
-    <img width="500px" src="./imagens/exp.png"></center></td>
+    <img width="700px" src="./imagens/exp.png"></center></td>
 
     É clara a diferença de desempenho do algoritmo de força bruta para os demais por conta de reduzir 1 na potência da ordem de complexidade, porém a versão otimizada é ainda melhor com o crescimento da curva do tempo de execução mais suave.
 
@@ -227,49 +219,6 @@ Para a resolução da atividade foram utilizados:
 5. Estimativa de N para uma execução de 10s para cada algoritmo
 
     1. Força bruta: N ~ raiz_cubica(T/K) ~ 777
-    2. Com busca binária: N ~ 2536 (encontrado com o auxílio de planilha eletrônica)
-    3. Otimizado: N ~ raiz_quadrada(T/K) ~ 8860
+    2. Com busca binária: N ~ 2366 (encontrado com o auxílio de planilha eletrônica)
+    3. Otimizado: N ~ raiz_quadrada(T/K) ~ 9912
 
-
-    Algoritmo 3-SUM Busca Binária
-| N | T(s) | K(n) |
-| 100 | 0.003 | 4.709e-08 |
-| 500 | 0.127 | 5.672e-08 |
-| 1000 | 0.719 | 7.213e-08 |
-| 2000 | 4.837 | 1.103e-07 |
-| 5000 | 70.744 | 2.303e-07 |
-| 10000 | 584.878 | 4.402e-07 |
-
-Estimativa de tempos
-| N | K(medio) | T(s) | T(s)(estimado) | Erro(%) |
-| 100 | 1.594e-07 | 0.003 | 0.011 | 238.612 |
-| 500 | 1.594e-07 | 0.127 | 0.357 | 181.113 |
-| 1000 | 1.594e-07 | 0.719 | 1.589 | 121.064 |
-| 2000 | 1.594e-07 | 4.837 | 6.994 | 44.593 |
-| 5000 | 1.594e-07 | 70.744 | 48.980 | -30.765 |
-| 10000 | 1.594e-07 | 584.878 | 211.863 | -63.776 |
-
-
-[0.0031284056666666667, 0.12713162833333333, 0.718784873, 4.836810198, 70.74414646733332, 584.877663284]
-[[1225, 1225, 1225], [31125, 31125, 31125], [124750, 124750, 124750], [499500, 499500, 499500], [3123750, 3123750, 3123750], [12497500, 12497500, 12497500]]
-Algoritmo 3-SUM Otimizado
-| N | T(s) | K(n) |
-| 100 | 0.001 | 1.266e-07 |
-| 500 | 0.024 | 9.746e-08 |
-| 1000 | 0.096 | 9.637e-08 |
-| 2000 | 0.382 | 9.555e-08 |
-| 5000 | 2.405 | 9.620e-08 |
-| 10000 | 9.870 | 9.870e-08 |
-
-Estimativa de tempos
-| N | K(medio) | T(s) | T(s)(estimado) | Erro(%) |
-| 100 | 1.018e-07 | 0.001 | 0.001 | -19.597 |
-| 500 | 1.018e-07 | 0.024 | 0.025 | 4.473 |
-| 1000 | 1.018e-07 | 0.096 | 0.102 | 5.656 |
-| 2000 | 1.018e-07 | 0.382 | 0.407 | 6.564 |
-| 5000 | 1.018e-07 | 2.405 | 2.545 | 5.844 |
-| 10000 | 1.018e-07 | 9.870 | 10.182 | 3.154 |
-
-
-[0.00126633, 0.024364537333333332, 0.09636706233333332, 0.3821842093333333, 2.404893487, 9.870385724333333]
-[[1225, 1225, 1225], [31125, 31125, 31125], [124750, 124750, 124750], [499500, 499500, 499500], [3123750, 3123750, 3123750], [12497500, 12497500, 12497500]]
