@@ -4,9 +4,9 @@ from math import *
 
 
 def busca_binaria(vec: list, l: int, h: int, chave: int, times: int):
-    #somente para inserir breakpoint para depuração de cada chave
-    if chave == 1:
-        a=1
+    # somente para inserir breakpoint para depuração de cada chave
+    if chave == 14:
+        a = 1
     # Caso base
     if h >= l:
         m = (h + l) // 2
