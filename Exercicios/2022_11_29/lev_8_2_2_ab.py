@@ -1,9 +1,10 @@
 def mochila(
     itens: list,
     n_itens: int,
-    capacidade: int,
-    solucao: list(list())
+    capacidade: int
 ) -> list(list()):
+    # matriz 2d inicialmente preenchida com 0
+    solucao = [[0 for i in range(capacidade+1)]for i in range(n_itens+1)]
     for i in range(n_itens):
         item_w = itens[i][0]
         item_v = itens[i][1]
@@ -17,11 +18,36 @@ def mochila(
                 )
     return solucao
 
+
+def selecionar_itens(
+    solucao: list(list()),
+    itens: list,
+    n_itens: int,
+    capacidade: int
+) -> list():
+    itens_escolhidos = {}
+    j = capacidade
+    i = n_itens-1
+    while(j > 0 and i+1 > 0):
+        v = solucao[i+1][j]
+        if v == solucao[i][j]:
+            i -= 1
+            continue
+        else:
+            itens_escolhidos[str(i+1)] = itens[i]
+            j -= itens[i][0]
+            i -= 1
+    return itens_escolhidos
+
+
 # Usei o exemplo do exercicio LEV 8.2 1a para testar o algoritmo
-capacidade = 6
 # vetor de vetores no padrao:idx = item, [peso, valor]
+#capacidade = 5
+#itens = [[2, 12], [1, 10], [3, 20], [2, 15]]
+capacidade = 6
 itens = [[3, 25], [2, 20], [1, 15], [4, 40], [5, 50]]
+
 n_itens = len(itens)
-# matriz 2d inicialmente preenchida com 0
-solucao = [[0 for i in range(capacidade+1)]for i in range(n_itens+1)]
-print(mochila(itens, n_itens, capacidade, solucao))
+solucao = mochila(itens, n_itens, capacidade)
+itens_selecionados = selecionar_itens(solucao, itens, n_itens, capacidade)
+print(itens_selecionados)
