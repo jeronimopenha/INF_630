@@ -1,5 +1,5 @@
 # minimum-sum descent forca bruta
-def msd_fb(p: list[list[int]], i: int, j: int) -> int:
+def msd_fb(p: list([list([int])]), i: int, j: int) -> int:
     if i == 0:
         return p[i][j]
     else:
@@ -12,7 +12,7 @@ def msd_fb(p: list[list[int]], i: int, j: int) -> int:
 # minimum-sum descent programacao dinamica
 
 
-def msd_pd(p: list[list[int]], i: int, j: int, tabela: list[list[int]]) -> int:
+def msd_pd(p: list([list([int])]), i: int, j: int, tabela: list([list([int])])) -> int:
     if i == 0:
         return p[i][j]
     else:
@@ -31,7 +31,7 @@ def msd_pd(p: list[list[int]], i: int, j: int, tabela: list[list[int]]) -> int:
         return s
 
 # minimum-sum descent guloso
-def msd_gl(p: list[list[int]], i: int, j: int) -> int:
+def msd_gl(p: list([list([int])]), i: int, j: int) -> int:
     if i == 0:
         return p[i][j]
     if (p[i-1][j]) < p[i-1][j-1]:
@@ -44,7 +44,6 @@ def msd_gl(p: list[list[int]], i: int, j: int) -> int:
         return s
 
 
-n = 4
 p = [
     [6, 9, 6, 8],
     [0, 7, 4, 1],
@@ -53,7 +52,10 @@ p = [
 
 
 ]
+n = len(p)
 tabela = [[None for i in range(n)] for i in range(n)]
-i = 3
-j = 3
+i = n-1
+j = n-1
+print(msd_fb(p, i, j))
+print(msd_pd(p, i, j,tabela))
 print(msd_gl(p, i, j))
