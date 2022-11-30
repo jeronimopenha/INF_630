@@ -1,8 +1,8 @@
 def mochila(
-    itens: list,
+    itens: list[list[int]],
     n_itens: int,
     capacidade: int
-) -> list(list()):
+) -> list[list[int]]:
     # matriz 2d inicialmente preenchida com 0
     solucao = [[0 for i in range(capacidade+1)]for i in range(n_itens+1)]
     for i in range(n_itens):
@@ -20,11 +20,11 @@ def mochila(
 
 
 def selecionar_itens(
-    solucao: list(list()),
-    itens: list,
+    solucao: list[list[int]],
+    itens: list[list[int]],
     n_itens: int,
     capacidade: int
-) -> list():
+) -> list[int]:
     itens_escolhidos = {}
     j = capacidade
     i = n_itens-1

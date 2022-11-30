@@ -3,7 +3,7 @@ from math import *
 # Retora o índice de chave em vec se estiver presente, senão -1
 
 
-def busca_binaria(vec: list, l: int, h: int, chave: int, times: int):
+def busca_binaria(vec: list[int], l: int, h: int, chave: int, times: int)->list[int]:
     # somente para inserir breakpoint para depuração de cada chave
     if chave == 14:
         a = 1

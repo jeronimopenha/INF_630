@@ -1,10 +1,10 @@
 def mochila_com_repeticao(
-    itens: list,
+    itens: list[list[int]],
     capacidade: int,
     item_idx: int,
-    tabela: dict
+    tabela: list[list[int]]
 
-) -> list(list()):
+) -> list[list[int]]:
     w_item = itens[item_idx][0]
     v_item = itens[item_idx][1]
     if item_idx <= 0 or capacidade <= 0:

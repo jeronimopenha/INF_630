@@ -2,7 +2,7 @@
 # closest pair onde dimensional
 
 # força bruta
-def par_mais_perto_fb(itens: list()) -> tuple[int, int]:
+def par_mais_perto_fb(itens: list[int]) -> list[int, int]:
     it = sorted(itens)
     mais_pertos = [it[0], it[1]]
     menor_distancia = abs(it[0]-it[1])
@@ -15,7 +15,7 @@ def par_mais_perto_fb(itens: list()) -> tuple[int, int]:
 
 # dividir pra conquistar
 
-def par_mais_perto_dc(itens: list()) -> tuple([[int, int], int]):
+def par_mais_perto_dc(itens: list[int]) -> list[list[int, int], int]:
     n = len(itens)
     if n == 3:
         if abs(itens[0]-itens[1]) < abs(itens[1]-itens[2]):
@@ -52,4 +52,5 @@ itens = [376, 317, 700, 553, 758, 378, 533, 692, 888, 157,
          101, 49, 562, 600, 954, 842, 262, 853, 31, 503]
 
 it = sorted(itens)
+print(par_mais_perto_fb(it))
 print(par_mais_perto_dc(it))
